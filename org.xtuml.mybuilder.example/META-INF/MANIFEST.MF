@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: my exquisite builder
+Bundle-SymbolicName: org.xtuml.mybuilder.example; singleton:=true
+Bundle-Version: 1.0.0.1
+Bundle-Activator: org.xtuml.mybuilder.example.Activator
+Bundle-Vendor: Robert 'Rambo IV' Inkret
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ com.mentor.nucleus.bp.core;bundle-version="4.1.7"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.ui.console
