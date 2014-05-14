@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
+
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
@@ -88,10 +91,14 @@ public class ModelLabelProvider extends LabelProvider {
 			}
 		} else if (element instanceof Operation_c) {
 			String text = ((Operation_c) element).getName();
+			String prefix = "";
+			if(((Operation_c)element).getInstance_based()==0){
+				prefix = ">>>";
+			}
 			if (text == null) {
-				return "";
+				return prefix + "";
 			} else {
-				return text;
+				return prefix + text;
 			}
 		} else if (element instanceof OperationParameter_c) {
 			String text = ((OperationParameter_c) element).getName();

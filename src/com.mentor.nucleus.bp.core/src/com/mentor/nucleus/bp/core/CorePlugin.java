@@ -451,6 +451,20 @@ public class CorePlugin extends AbstractUIPlugin {
     	return getImageFor(object, true);
     }
     
+    public static Image getImagefor(Object object, String objectName){
+        Image image = getStaticImageRegistry().get(objectName);
+        if (image == null) {
+            ImageDescriptor descriptor = getImageDescriptorFor(objectName, false ,object, true);
+            if (descriptor == null) {
+                return null;
+            } else {
+                image = descriptor.createImage();
+                getStaticImageRegistry().put(objectName, image);
+            }
+        }
+        return image;
+    }
+    
     public static Image getImageFor(Object object, boolean returnDefaultOnFail) {
         String type = object.getClass().getName();
         //Removing the packge name from the type string
@@ -469,6 +483,7 @@ public class CorePlugin extends AbstractUIPlugin {
       return getImageDescriptorFor(objectName, stripName, null, returnDefaultOnFail);
     
     }
+    
 
     public static ImageDescriptor getImageDescriptorFor(String Name, boolean stripName, Object object, boolean returnDefaultOnFail) {
         String objectName;
@@ -521,7 +536,12 @@ public class CorePlugin extends AbstractUIPlugin {
             descriptor = getImageDescriptor("metadata/FunctionParameter.gif");
             }    
             else if (objectName.equals("Operation_c")) {
-            descriptor = getImageDescriptor("metadata/Operation.gif");
+            	if(((Operation_c)object).getInstance_based()==0){
+            		descriptor = getImageDescriptor("feri.gif");
+            	}
+            	else{
+            		descriptor = getImageDescriptor("metadata/Operation.gif");
+            	}
             }    
             else if (objectName.equals("OperationParameter_c")) {
             descriptor = getImageDescriptor("metadata/OperationParameter.gif");
@@ -830,6 +850,9 @@ public class CorePlugin extends AbstractUIPlugin {
     // else if(objectName.equals("ProvidedOperation_cBiDirectional")) {
     // descriptor = getImageDescriptor("metadata/InOutOperation.gif");
     // }
+    else if (objectName.equals("CB_Operation")){
+    	descriptor = getImageDescriptor("feri.gif");
+    }
     else if (objectName.equals("ProvidedSignal_cClientServer")) {
       descriptor = getImageDescriptor("metadata/incomingSignal.gif");
     } else if (objectName.equals("ProvidedSignal_cServerClient")) {
@@ -979,6 +1002,19 @@ public class CorePlugin extends AbstractUIPlugin {
             objectName = objectName.substring(objectName.lastIndexOf('.') + 1);
         }
         objectName = extendNameIfNecessary(object, objectName);
+        if(objectName.equals( "Operation_c") && (((Operation_c)object).getInstance_based() == 0) ){
+        	Image image = getStaticImageRegistry().get("CB_Operation");
+        	if (image == null){
+        		ImageDescriptor descriptor = getImageDescriptorFor(objectName, false ,object, returnDefaultOnFail);
+                if (descriptor == null) {
+                    return null;
+                } else {
+                    image = descriptor.createImage();
+                    getStaticImageRegistry().put("CB_Operation", image);
+                }
+        	}
+        	return image;
+        }
         Image image = getStaticImageRegistry().get(objectName);
         if (image == null) {
             ImageDescriptor descriptor = getImageDescriptorFor(objectName, false ,object, returnDefaultOnFail);
