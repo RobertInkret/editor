@@ -1,4 +1,5 @@
 package com.mentor.nucleus.bp.ui.canvas;
+
 //====================================================================
 //
 // File:      com.mentor.nucleus.bp.ui.canvas.Shape_c.java
@@ -11,6 +12,10 @@ package com.mentor.nucleus.bp.ui.canvas;
 //====================================================================
 
 import com.mentor.nucleus.bp.core.*;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.GC;
 import java.util.*;
 import java.lang.reflect.*;
@@ -24,23 +29,26 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import com.mentor.nucleus.bp.core.ui.marker.UmlProblem;
 import org.eclipse.swt.graphics.Color;
 import com.mentor.nucleus.bp.core.common.*;
+
 abstract class EV_SHAPE extends genericEvent_c {
 	public abstract int getEvtcode();
 }
 
-public class Shape_c extends NonRootModelElement
-		implements
-			IAdaptable,
-			Cloneable {
+public class Shape_c extends NonRootModelElement implements IAdaptable,
+		Cloneable {
+	private static final Color Reference = null;
+
 	// Public Constructors
 	public Shape_c(ModelRoot modelRoot, java.util.UUID p_m_elementid) {
 		super(modelRoot);
-		//pre-process the uuid so that we re-use null uuid instance rather then creating a new one.           
+		// pre-process the uuid so that we re-use null uuid instance rather then
+		// creating a new one.
 		m_elementid = IdAssigner.preprocessUUID(p_m_elementid);
 
-		Object[] key = {m_elementid};
+		Object[] key = { m_elementid };
 		addInstanceToMap(key);
 	}
+
 	static public Shape_c createProxy(ModelRoot modelRoot,
 			java.util.UUID p_m_elementid, String p_contentPath,
 			IPath p_localPath) {
@@ -54,7 +62,7 @@ public class Shape_c extends NonRootModelElement
 		InstanceList instances = modelRoot.getInstanceList(Shape_c.class);
 		Shape_c new_inst = null;
 		synchronized (instances) {
-			Object[] key = {p_m_elementid};
+			Object[] key = { p_m_elementid };
 			new_inst = (Shape_c) instances.get(key);
 		}
 		String contentPath = PersistenceUtil.resolveRelativePath(p_localPath,
@@ -69,14 +77,16 @@ public class Shape_c extends NonRootModelElement
 			if (pmc == null) {
 				// dangling reference, redo this instance
 				new_inst.batchUnrelate();
-				//pre-process the uuid so that we re-use null uuid instance rather then creating a new one.           
+				// pre-process the uuid so that we re-use null uuid instance
+				// rather then creating a new one.
 				new_inst.m_elementid = IdAssigner.preprocessUUID(p_m_elementid);
 
 			}
 		}
 		if (new_inst == null) {
 			// there is no instance matching the id, create a proxy
-			// if the resource doesn't exist then this will be a dangling reference
+			// if the resource doesn't exist then this will be a dangling
+			// reference
 			new_inst = new Shape_c(modelRoot, p_m_elementid);
 			new_inst.m_contentPath = contentPath;
 		}
@@ -88,12 +98,13 @@ public class Shape_c extends NonRootModelElement
 		InstanceList instances = modelRoot.getInstanceList(Shape_c.class);
 		Shape_c source = null;
 		synchronized (instances) {
-			Object[] key = {p_m_elementid};
+			Object[] key = { p_m_elementid };
 			source = (Shape_c) instances.get(key);
 			if (source != null && !modelRoot.isCompareRoot()) {
 				source.convertFromProxy();
 				source.batchUnrelate();
-				//pre-process the uuid so that we re-use null uuid instance rather then creating a new one.           
+				// pre-process the uuid so that we re-use null uuid instance
+				// rather then creating a new one.
 				source.m_elementid = IdAssigner.preprocessUUID(p_m_elementid);
 
 				return source;
@@ -103,15 +114,16 @@ public class Shape_c extends NonRootModelElement
 		Shape_c new_inst = new Shape_c(modelRoot, p_m_elementid);
 		return new_inst;
 	}
+
 	public Shape_c(ModelRoot modelRoot) {
 		super(modelRoot);
 		m_elementid = IdAssigner.NULL_UUID;
-		Object[] key = {m_elementid};
+		Object[] key = { m_elementid };
 		addInstanceToMap(key);
 	}
 
 	public Object getInstanceKey() {
-		Object[] key = {m_elementid};
+		Object[] key = { m_elementid };
 		return key;
 	}
 
@@ -150,7 +162,7 @@ public class Shape_c extends NonRootModelElement
 
 		Shape_c me = (Shape_c) elem;
 		// don't allow an empty id-value to produce a false positive result;
-		// in this case, use whether the two instances are actually the same 
+		// in this case, use whether the two instances are actually the same
 		// one in memory, instead
 		if ((IdAssigner.NULL_UUID.equals(getElementid()) || IdAssigner.NULL_UUID
 				.equals(((Shape_c) elem).getElementid())) && this != elem) {
@@ -181,9 +193,11 @@ public class Shape_c extends NonRootModelElement
 	// referring navigation
 
 	Graphnode_c IsSupertypeGraphnode;
+
 	public void relateAcrossR19To(Graphnode_c target) {
 		relateAcrossR19To(target, true);
 	}
+
 	public void relateAcrossR19To(Graphnode_c target, boolean notifyChanges) {
 		if (target == null)
 			return;
@@ -227,9 +241,11 @@ public class Shape_c extends NonRootModelElement
 			}
 		}
 	}
+
 	public void unrelateAcrossR19From(Graphnode_c target) {
 		unrelateAcrossR19From(target, true);
 	}
+
 	public void unrelateAcrossR19From(Graphnode_c target, boolean notifyChanges) {
 		if (target == null)
 			return;
@@ -313,6 +329,7 @@ public class Shape_c extends NonRootModelElement
 			boolean loadComponent) {
 		return find_getOneGD_SHPOnR19(modelRoot, target, test);
 	}
+
 	private static Shape_c find_getOneGD_SHPOnR19(ModelRoot modelRoot,
 			Graphnode_c target, ClassQueryInterface_c test) {
 		if (target != null) {
@@ -328,10 +345,12 @@ public class Shape_c extends NonRootModelElement
 	public static Shape_c[] getManyGD_SHPsOnR19(Graphnode_c[] targets) {
 		return getManyGD_SHPsOnR19(targets, null);
 	}
+
 	public static Shape_c[] getManyGD_SHPsOnR19(Graphnode_c[] targets,
 			boolean loadComponent) {
 		return getManyGD_SHPsOnR19(targets, null, loadComponent);
 	}
+
 	public static Shape_c[] getManyGD_SHPsOnR19(Graphnode_c[] targets,
 			ClassQueryInterface_c test) {
 		return getManyGD_SHPsOnR19(targets, test, true);
@@ -389,9 +408,11 @@ public class Shape_c extends NonRootModelElement
 	// referring navigation
 
 	GraphicalElement_c IsSupertypeGraphicalElement;
+
 	public void relateAcrossR2To(GraphicalElement_c target) {
 		relateAcrossR2To(target, true);
 	}
+
 	public void relateAcrossR2To(GraphicalElement_c target,
 			boolean notifyChanges) {
 		if (target == null)
@@ -436,9 +457,11 @@ public class Shape_c extends NonRootModelElement
 			}
 		}
 	}
+
 	public void unrelateAcrossR2From(GraphicalElement_c target) {
 		unrelateAcrossR2From(target, true);
 	}
+
 	public void unrelateAcrossR2From(GraphicalElement_c target,
 			boolean notifyChanges) {
 		if (target == null)
@@ -522,6 +545,7 @@ public class Shape_c extends NonRootModelElement
 			boolean loadComponent) {
 		return find_getOneGD_SHPOnR2(modelRoot, target, test);
 	}
+
 	private static Shape_c find_getOneGD_SHPOnR2(ModelRoot modelRoot,
 			GraphicalElement_c target, ClassQueryInterface_c test) {
 		if (target != null) {
@@ -537,10 +561,12 @@ public class Shape_c extends NonRootModelElement
 	public static Shape_c[] getManyGD_SHPsOnR2(GraphicalElement_c[] targets) {
 		return getManyGD_SHPsOnR2(targets, null);
 	}
+
 	public static Shape_c[] getManyGD_SHPsOnR2(GraphicalElement_c[] targets,
 			boolean loadComponent) {
 		return getManyGD_SHPsOnR2(targets, null, loadComponent);
 	}
+
 	public static Shape_c[] getManyGD_SHPsOnR2(GraphicalElement_c[] targets,
 			ClassQueryInterface_c test) {
 		return getManyGD_SHPsOnR2(targets, test, true);
@@ -691,6 +717,7 @@ public class Shape_c extends NonRootModelElement
 	public static Shape_c getOneGD_SHPOnR27(FloatingText_c target) {
 		return getOneGD_SHPOnR27(target, true);
 	}
+
 	public static Shape_c getOneGD_SHPOnR27(FloatingText_c target,
 			boolean loadComponent) {
 		if (target != null) {
@@ -708,29 +735,29 @@ public class Shape_c extends NonRootModelElement
 		return getManyGD_SHPsOnR27(targets, test, true);
 	}
 
-	public static Shape_c [] getManyGD_SHPsOnR27(FloatingText_c [] targets,
-    ClassQueryInterface_c test, boolean loadComponent)
-{
-  if(targets == null || targets.length == 0 || targets[0] == null)
-    return new Shape_c[0];
-  
-  
-  LinkedHashSet<Shape_c> elementsSet = new LinkedHashSet<Shape_c>();
-  for (int i = 0; i < targets.length; i++) {
-	if(loadComponent && targets[i] != null && targets[i].IsTextForShape == null)
-	  targets[i].loadProxy();
-    Shape_c associate = targets[i].IsTextForShape;
-    if (targets[i] != null && associate != null
-    	&& (test == null || test.evaluate(associate))) {
-        	if (elementsSet.add(associate)){ 
-            }
-    }
-  }
+	public static Shape_c[] getManyGD_SHPsOnR27(FloatingText_c[] targets,
+			ClassQueryInterface_c test, boolean loadComponent) {
+		if (targets == null || targets.length == 0 || targets[0] == null)
+			return new Shape_c[0];
 
-  Shape_c[] result = new Shape_c[elementsSet.size()];
-  elementsSet.toArray(result);
-  return result;
-}
+		LinkedHashSet<Shape_c> elementsSet = new LinkedHashSet<Shape_c>();
+		for (int i = 0; i < targets.length; i++) {
+			if (loadComponent && targets[i] != null
+					&& targets[i].IsTextForShape == null)
+				targets[i].loadProxy();
+			Shape_c associate = targets[i].IsTextForShape;
+			if (targets[i] != null && associate != null
+					&& (test == null || test.evaluate(associate))) {
+				if (elementsSet.add(associate)) {
+				}
+			}
+		}
+
+		Shape_c[] result = new Shape_c[elementsSet.size()];
+		elementsSet.toArray(result);
+		return result;
+	}
+
 	public static Shape_c[] getManyGD_SHPsOnR27(FloatingText_c[] targets) {
 		return getManyGD_SHPsOnR27(targets, null);
 	}
@@ -858,6 +885,7 @@ public class Shape_c extends NonRootModelElement
 	public static Shape_c getOneGD_SHPOnR28(NoncontainingShape_c target) {
 		return getOneGD_SHPOnR28(target, true);
 	}
+
 	public static Shape_c getOneGD_SHPOnR28(NoncontainingShape_c target,
 			boolean loadComponent) {
 		if (target != null) {
@@ -875,29 +903,29 @@ public class Shape_c extends NonRootModelElement
 		return getManyGD_SHPsOnR28(targets, test, true);
 	}
 
-	public static Shape_c [] getManyGD_SHPsOnR28(NoncontainingShape_c [] targets,
-    ClassQueryInterface_c test, boolean loadComponent)
-{
-  if(targets == null || targets.length == 0 || targets[0] == null)
-    return new Shape_c[0];
-  
-  
-  LinkedHashSet<Shape_c> elementsSet = new LinkedHashSet<Shape_c>();
-  for (int i = 0; i < targets.length; i++) {
-	if(loadComponent && targets[i] != null && targets[i].IsSupertypeShape == null)
-	  targets[i].loadProxy();
-    Shape_c associate = targets[i].IsSupertypeShape;
-    if (targets[i] != null && associate != null
-    	&& (test == null || test.evaluate(associate))) {
-        	if (elementsSet.add(associate)){ 
-            }
-    }
-  }
+	public static Shape_c[] getManyGD_SHPsOnR28(NoncontainingShape_c[] targets,
+			ClassQueryInterface_c test, boolean loadComponent) {
+		if (targets == null || targets.length == 0 || targets[0] == null)
+			return new Shape_c[0];
 
-  Shape_c[] result = new Shape_c[elementsSet.size()];
-  elementsSet.toArray(result);
-  return result;
-}
+		LinkedHashSet<Shape_c> elementsSet = new LinkedHashSet<Shape_c>();
+		for (int i = 0; i < targets.length; i++) {
+			if (loadComponent && targets[i] != null
+					&& targets[i].IsSupertypeShape == null)
+				targets[i].loadProxy();
+			Shape_c associate = targets[i].IsSupertypeShape;
+			if (targets[i] != null && associate != null
+					&& (test == null || test.evaluate(associate))) {
+				if (elementsSet.add(associate)) {
+				}
+			}
+		}
+
+		Shape_c[] result = new Shape_c[elementsSet.size()];
+		elementsSet.toArray(result);
+		return result;
+	}
+
 	public static Shape_c[] getManyGD_SHPsOnR28(NoncontainingShape_c[] targets) {
 		return getManyGD_SHPsOnR28(targets, null);
 	}
@@ -1025,6 +1053,7 @@ public class Shape_c extends NonRootModelElement
 	public static Shape_c getOneGD_SHPOnR28(ContainingShape_c target) {
 		return getOneGD_SHPOnR28(target, true);
 	}
+
 	public static Shape_c getOneGD_SHPOnR28(ContainingShape_c target,
 			boolean loadComponent) {
 		if (target != null) {
@@ -1042,29 +1071,29 @@ public class Shape_c extends NonRootModelElement
 		return getManyGD_SHPsOnR28(targets, test, true);
 	}
 
-	public static Shape_c [] getManyGD_SHPsOnR28(ContainingShape_c [] targets,
-    ClassQueryInterface_c test, boolean loadComponent)
-{
-  if(targets == null || targets.length == 0 || targets[0] == null)
-    return new Shape_c[0];
-  
-  
-  LinkedHashSet<Shape_c> elementsSet = new LinkedHashSet<Shape_c>();
-  for (int i = 0; i < targets.length; i++) {
-	if(loadComponent && targets[i] != null && targets[i].IsSupertypeShape == null)
-	  targets[i].loadProxy();
-    Shape_c associate = targets[i].IsSupertypeShape;
-    if (targets[i] != null && associate != null
-    	&& (test == null || test.evaluate(associate))) {
-        	if (elementsSet.add(associate)){ 
-            }
-    }
-  }
+	public static Shape_c[] getManyGD_SHPsOnR28(ContainingShape_c[] targets,
+			ClassQueryInterface_c test, boolean loadComponent) {
+		if (targets == null || targets.length == 0 || targets[0] == null)
+			return new Shape_c[0];
 
-  Shape_c[] result = new Shape_c[elementsSet.size()];
-  elementsSet.toArray(result);
-  return result;
-}
+		LinkedHashSet<Shape_c> elementsSet = new LinkedHashSet<Shape_c>();
+		for (int i = 0; i < targets.length; i++) {
+			if (loadComponent && targets[i] != null
+					&& targets[i].IsSupertypeShape == null)
+				targets[i].loadProxy();
+			Shape_c associate = targets[i].IsSupertypeShape;
+			if (targets[i] != null && associate != null
+					&& (test == null || test.evaluate(associate))) {
+				if (elementsSet.add(associate)) {
+				}
+			}
+		}
+
+		Shape_c[] result = new Shape_c[elementsSet.size()];
+		elementsSet.toArray(result);
+		return result;
+	}
+
 	public static Shape_c[] getManyGD_SHPsOnR28(ContainingShape_c[] targets) {
 		return getManyGD_SHPsOnR28(targets, null);
 	}
@@ -1108,15 +1137,15 @@ public class Shape_c extends NonRootModelElement
 
 		// R19
 		Graphnode_c relInst22124 = (Graphnode_c) baseRoot.getInstanceList(
-				Graphnode_c.class).get(new Object[]{m_elementid});
+				Graphnode_c.class).get(new Object[] { m_elementid });
 		// if there was no local element, check for any global elements
 		// failing that proceed to check other model roots
 		if (relInst22124 == null) {
 			relInst22124 = (Graphnode_c) Ooaofooa.getDefaultInstance()
 					.getInstanceList(Graphnode_c.class)
-					.get(new Object[]{m_elementid});
+					.get(new Object[] { m_elementid });
 		}
-		//synchronized
+		// synchronized
 		if (relInst22124 != null) {
 			if (relateProxies || !isProxy()
 					|| (inSameComponent(this, relInst22124) && !isProxy())) {
@@ -1127,15 +1156,15 @@ public class Shape_c extends NonRootModelElement
 		// R2
 		GraphicalElement_c relInst22125 = (GraphicalElement_c) baseRoot
 				.getInstanceList(GraphicalElement_c.class).get(
-						new Object[]{m_elementid});
+						new Object[] { m_elementid });
 		// if there was no local element, check for any global elements
 		// failing that proceed to check other model roots
 		if (relInst22125 == null) {
 			relInst22125 = (GraphicalElement_c) Ooaofooa.getDefaultInstance()
 					.getInstanceList(GraphicalElement_c.class)
-					.get(new Object[]{m_elementid});
+					.get(new Object[] { m_elementid });
 		}
-		//synchronized
+		// synchronized
 		if (relInst22125 != null) {
 			if (relateProxies || !isProxy()
 					|| (inSameComponent(this, relInst22125) && !isProxy())) {
@@ -1144,6 +1173,7 @@ public class Shape_c extends NonRootModelElement
 		}
 
 	}
+
 	public void batchUnrelate(boolean notifyChanges) {
 		NonRootModelElement inst = null;
 		// R19
@@ -1161,22 +1191,25 @@ public class Shape_c extends NonRootModelElement
 			inst.removeRef();
 		}
 	}
+
 	public static void batchRelateAll(ModelRoot modelRoot,
 			boolean notifyChanges, boolean searchAllRoots) {
 		batchRelateAll(modelRoot, notifyChanges, searchAllRoots, false);
 	}
-	public static void batchRelateAll(ModelRoot modelRoot, boolean notifyChanges, boolean searchAllRoots, boolean relateProxies)
-  {
-	InstanceList instances = modelRoot.getInstanceList(Shape_c.class);
-    synchronized(instances) {
-        Iterator<NonRootModelElement> cursor = instances.iterator() ;
-    	while (cursor.hasNext())
-	    {
-            final Shape_c inst = (Shape_c)cursor.next() ;
-	        inst.batchRelate(modelRoot, relateProxies, notifyChanges, searchAllRoots );
-	    }
+
+	public static void batchRelateAll(ModelRoot modelRoot,
+			boolean notifyChanges, boolean searchAllRoots, boolean relateProxies) {
+		InstanceList instances = modelRoot.getInstanceList(Shape_c.class);
+		synchronized (instances) {
+			Iterator<NonRootModelElement> cursor = instances.iterator();
+			while (cursor.hasNext()) {
+				final Shape_c inst = (Shape_c) cursor.next();
+				inst.batchRelate(modelRoot, relateProxies, notifyChanges,
+						searchAllRoots);
+			}
+		}
 	}
-  }
+
 	public static void clearInstances(ModelRoot modelRoot) {
 		InstanceList instances = modelRoot.getInstanceList(Shape_c.class);
 		synchronized (instances) {
@@ -1192,6 +1225,7 @@ public class Shape_c extends NonRootModelElement
 		Shape_c result = findShapeInstance(modelRoot, test, loadComponent);
 		return result;
 	}
+
 	private static Shape_c findShapeInstance(ModelRoot modelRoot,
 			ClassQueryInterface_c test, boolean loadComponent) {
 		InstanceList instances = modelRoot.getInstanceList(Shape_c.class);
@@ -1205,6 +1239,7 @@ public class Shape_c extends NonRootModelElement
 		}
 		return null;
 	}
+
 	public static Shape_c ShapeInstance(ModelRoot modelRoot,
 			ClassQueryInterface_c test) {
 		return ShapeInstance(modelRoot, test, true);
@@ -1234,10 +1269,12 @@ public class Shape_c extends NonRootModelElement
 			}
 		}
 	}
+
 	public static Shape_c[] ShapeInstances(ModelRoot modelRoot,
 			ClassQueryInterface_c test) {
 		return ShapeInstances(modelRoot, test, true);
 	}
+
 	public static Shape_c[] ShapeInstances(ModelRoot modelRoot) {
 		return ShapeInstances(modelRoot, null, true);
 	}
@@ -1302,6 +1339,7 @@ public class Shape_c extends NonRootModelElement
 		}
 		return false;
 	}
+
 	// declare attribute accessors
 	public long getElementidLongBased() {
 		if (IsSupertypeGraphnode != null) {
@@ -1312,6 +1350,7 @@ public class Shape_c extends NonRootModelElement
 		}
 		return 0;
 	}
+
 	public java.util.UUID getElementid() {
 		if (IsSupertypeGraphnode != null) {
 			return IsSupertypeGraphnode.getElementid();
@@ -1347,6 +1386,7 @@ public class Shape_c extends NonRootModelElement
 			objs[i].checkConsistency();
 		}
 	}
+
 	public boolean checkConsistency() {
 		Ooaofooa.log.println(ILogger.OPERATION, "Shape", //$NON-NLS-1$
 				" Operation entered: Shape::checkConsistency"); //$NON-NLS-1$
@@ -1359,7 +1399,9 @@ public class Shape_c extends NonRootModelElement
 			Shape_c_test22127_c(java.util.UUID p22128) {
 				m_p22128 = p22128;
 			}
+
 			private java.util.UUID m_p22128;
+
 			public boolean evaluate(Object candidate) {
 				Shape_c selected = (Shape_c) candidate;
 				boolean retval = false;
@@ -1416,7 +1458,9 @@ public class Shape_c extends NonRootModelElement
 			Graphnode_c_test22132_c(java.util.UUID p22133) {
 				m_p22133 = p22133;
 			}
+
 			private java.util.UUID m_p22133;
+
 			public boolean evaluate(Object candidate) {
 				Graphnode_c selected = (Graphnode_c) candidate;
 				boolean retval = false;
@@ -1454,7 +1498,9 @@ public class Shape_c extends NonRootModelElement
 			GraphicalElement_c_test22135_c(java.util.UUID p22136) {
 				m_p22136 = p22136;
 			}
+
 			private java.util.UUID m_p22136;
+
 			public boolean evaluate(Object candidate) {
 				GraphicalElement_c selected = (GraphicalElement_c) candidate;
 				boolean retval = false;
@@ -1493,7 +1539,9 @@ public class Shape_c extends NonRootModelElement
 			FloatingText_c_test22138_c(java.util.UUID p22139) {
 				m_p22139 = p22139;
 			}
+
 			private java.util.UUID m_p22139;
+
 			public boolean evaluate(Object candidate) {
 				FloatingText_c selected = (FloatingText_c) candidate;
 				boolean retval = false;
@@ -1532,7 +1580,9 @@ public class Shape_c extends NonRootModelElement
 			NoncontainingShape_c_test22141_c(java.util.UUID p22142) {
 				m_p22142 = p22142;
 			}
+
 			private java.util.UUID m_p22142;
+
 			public boolean evaluate(Object candidate) {
 				NoncontainingShape_c selected = (NoncontainingShape_c) candidate;
 				boolean retval = false;
@@ -1551,7 +1601,9 @@ public class Shape_c extends NonRootModelElement
 			ContainingShape_c_test22144_c(java.util.UUID p22145) {
 				m_p22145 = p22145;
 			}
+
 			private java.util.UUID m_p22145;
+
 			public boolean evaluate(Object candidate) {
 				ContainingShape_c selected = (ContainingShape_c) candidate;
 				boolean retval = false;
@@ -1932,10 +1984,51 @@ public class Shape_c extends NonRootModelElement
 						if (((v_verticalPosnAfterPrinting < v_lastAvailableVerticalPosn) || (v_entries == 1 && Os_c
 								.Ismultiline(v_leftResult)))) {
 
-							Gr_c.Drawtext(p_Context, Justification_c.Left,
-									v_leftResult, v_leftStyle,
-									(int) (v_x + v_spacing),
-									(int) (v_y + v_spacing));
+							if (v_compartment_id == 3) {
+								boolean isCBO = false;
+								Object tempVar = v_shape.getRepresents();
+								if (tempVar instanceof ModelClass_c) {
+									ModelClass_c objectTempVar = (ModelClass_c) tempVar;
+									Operation_c[] op = Operation_c
+											.getManyO_TFRsOnR115(objectTempVar);
+									String opName = v_leftResult.split("\\(")[0];
+									for (int i = 0; i < op.length; i++) {
+										if (opName.equals(op[i].getName())) {
+											if(op[i].getInstance_based()==0){
+												isCBO = true;
+											}
+										}
+									}
+
+								}
+								if (isCBO == true) {
+									
+									Font fntIn = p_Context.getFont();
+									FontData fntData = new FontData(fntIn.getFontData()[0].getName(),fntIn.getFontData()[0].getHeight(),SWT.BOLD|SWT.ITALIC);
+									Font fntOut = new Font(fntIn.getDevice(), fntData);
+									Color oldFgr = p_Context.getForeground();
+									p_Context.setForeground(new Color(fntIn.getDevice(), 255, 0, 255));
+									p_Context.setFont(fntOut);
+									Gr_c.Drawtext(p_Context,
+											Justification_c.Left, v_leftResult,
+											11,
+											(int) (v_x + v_spacing),
+											(int) (v_y + v_spacing));
+									p_Context.setForeground(oldFgr);
+									p_Context.setFont(fntIn);
+								} else {
+									Gr_c.Drawtext(p_Context,
+											Justification_c.Left, v_leftResult,
+											v_leftStyle,
+											(int) (v_x + v_spacing),
+											(int) (v_y + v_spacing));
+								}
+							} else {
+								Gr_c.Drawtext(p_Context, Justification_c.Left,
+										v_leftResult, v_leftStyle,
+										(int) (v_x + v_spacing),
+										(int) (v_y + v_spacing));
+							}
 
 						}
 
@@ -2158,6 +2251,7 @@ public class Shape_c extends NonRootModelElement
 		}
 
 	} // End draw
+
 	public boolean Isovernw(final int p_X, final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Isovernw");
@@ -2196,6 +2290,7 @@ public class Shape_c extends NonRootModelElement
 		return v_result;
 
 	} // End isOverNW
+
 	public boolean Isoverse(final int p_X, final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Isoverse");
@@ -2236,6 +2331,7 @@ public class Shape_c extends NonRootModelElement
 		return v_result;
 
 	} // End isOverSE
+
 	public boolean Isoverne(final int p_X, final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Isoverne");
@@ -2274,6 +2370,7 @@ public class Shape_c extends NonRootModelElement
 		return v_result;
 
 	} // End isOverNE
+
 	public boolean Isoversw(final int p_X, final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Isoversw");
@@ -2314,6 +2411,7 @@ public class Shape_c extends NonRootModelElement
 		return v_result;
 
 	} // End isOverSW
+
 	public boolean Isoververtex(final int p_X, final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Isoververtex");
@@ -2362,6 +2460,7 @@ public class Shape_c extends NonRootModelElement
 		return false;
 
 	} // End isOverVertex
+
 	public boolean Isover(final int p_X, final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Isover");
@@ -2441,6 +2540,7 @@ public class Shape_c extends NonRootModelElement
 		return false;
 
 	} // End isOver
+
 	public void Move(final int p_Xdelta, final int p_Ydelta) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Move");
@@ -2515,7 +2615,9 @@ public class Shape_c extends NonRootModelElement
 				LineSegment_test21534_c(java.util.UUID p21535) {
 					m_p21535 = p21535;
 				}
+
 				private java.util.UUID m_p21535;
+
 				public boolean evaluate(Object candidate) {
 					LineSegment_c selected = (LineSegment_c) candidate;
 					return selected.getElementid().equals(m_p21535);
@@ -2633,7 +2735,9 @@ public class Shape_c extends NonRootModelElement
 				LineSegment_test21536_c(java.util.UUID p21537) {
 					m_p21537 = p21537;
 				}
+
 				private java.util.UUID m_p21537;
+
 				public boolean evaluate(Object candidate) {
 					LineSegment_c selected = (LineSegment_c) candidate;
 					return selected.getElementid().equals(m_p21537);
@@ -2757,6 +2861,7 @@ public class Shape_c extends NonRootModelElement
 		}
 
 	} // End move
+
 	public boolean Isinside(final int p_H, final int p_W, final int p_X,
 			final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
@@ -2791,6 +2896,7 @@ public class Shape_c extends NonRootModelElement
 		return false;
 
 	} // End isInside
+
 	public void Moveconnectors(final int p_Vertex, final int p_Oldshapeheight,
 			final int p_Oldshapewidth, final int p_Oldshapex,
 			final int p_Oldshapey, final int p_Xdelta, final int p_Ydelta) {
@@ -2836,7 +2942,9 @@ public class Shape_c extends NonRootModelElement
 					LineSegment_test21538_c(java.util.UUID p21539) {
 						m_p21539 = p21539;
 					}
+
 					private java.util.UUID m_p21539;
+
 					public boolean evaluate(Object candidate) {
 						LineSegment_c selected = (LineSegment_c) candidate;
 						return selected.getElementid().equals(m_p21539);
@@ -2940,7 +3048,9 @@ public class Shape_c extends NonRootModelElement
 					LineSegment_test21540_c(java.util.UUID p21541) {
 						m_p21541 = p21541;
 					}
+
 					private java.util.UUID m_p21541;
+
 					public boolean evaluate(Object candidate) {
 						LineSegment_c selected = (LineSegment_c) candidate;
 						return selected.getElementid().equals(m_p21541);
@@ -3011,6 +3121,7 @@ public class Shape_c extends NonRootModelElement
 		}
 
 	} // End moveConnectors
+
 	public void Movevertex(final int p_End, final int p_Vertex,
 			final int p_Xdelta, final int p_Ydelta) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
@@ -3208,6 +3319,7 @@ public class Shape_c extends NonRootModelElement
 		}
 
 	} // End moveVertex
+
 	public int Getxintersect(final boolean p_Considerline, final int p_X1,
 			final int p_X2, final int p_Y1, final int p_Y2) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
@@ -3216,6 +3328,7 @@ public class Shape_c extends NonRootModelElement
 		return Getintersect(Axis_c.X, p_Considerline, p_X1, p_X2, p_Y1, p_Y2);
 
 	} // End getXIntersect
+
 	public int Getyintersect(final boolean p_Considerline, final int p_X1,
 			final int p_X2, final int p_Y1, final int p_Y2) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
@@ -3224,6 +3337,7 @@ public class Shape_c extends NonRootModelElement
 		return Getintersect(Axis_c.Y, p_Considerline, p_X1, p_X2, p_Y1, p_Y2);
 
 	} // End getYIntersect
+
 	public int Getintersect(final int p_Axis, final boolean p_Considerline,
 			final int p_X1, final int p_X2, final int p_Y1, final int p_Y2) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
@@ -3284,6 +3398,7 @@ public class Shape_c extends NonRootModelElement
 				v_graphElement.getPositiony(), p_X1, p_X2, p_Y1, p_Y2));
 
 	} // End getIntersect
+
 	public void Dispose() {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Dispose");
@@ -3408,6 +3523,7 @@ public class Shape_c extends NonRootModelElement
 		}
 
 	} // End dispose
+
 	public void Movetodefaultposition() {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Movetodefaultposition");
@@ -3478,6 +3594,7 @@ public class Shape_c extends NonRootModelElement
 		}
 
 	} // End moveToDefaultPosition
+
 	public java.util.UUID Getnearestgridsnappointonedge(final float p_X,
 			final float p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
@@ -3538,6 +3655,7 @@ public class Shape_c extends NonRootModelElement
 		return v_result.getPointid();
 
 	} // End getNearestGridSnapPointOnEdge
+
 	public Object Getrepresents(final int p_X, final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Getrepresents");
@@ -3556,6 +3674,7 @@ public class Shape_c extends NonRootModelElement
 		return v_element.getRepresents();
 
 	} // End getRepresents
+
 	public String Gettooltiptext(final int p_X, final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Gettooltiptext");
@@ -3588,6 +3707,7 @@ public class Shape_c extends NonRootModelElement
 		return "";
 
 	} // End getToolTipText
+
 	public int Geticonslotnumover(final int p_X, final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Geticonslotnumover");
@@ -3629,6 +3749,7 @@ public class Shape_c extends NonRootModelElement
 		return -1;
 
 	} // End getIconSlotNumOver
+
 	public boolean Isoverdiagramposition(final int p_X, final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Isoverdiagramposition");
@@ -3649,6 +3770,7 @@ public class Shape_c extends NonRootModelElement
 		return p_X >= v_x && p_X < v_x + v_w && p_Y >= v_y && p_Y < v_y + v_h;
 
 	} // End isOverDiagramPosition
+
 	public void Drawcomponentminisymbol(final GCDelegate p_Context,
 			final boolean p_Filled, final float p_H, final float p_W,
 			final float p_X, final float p_Y) {
@@ -3692,6 +3814,7 @@ public class Shape_c extends NonRootModelElement
 		Gr_c.Unclip(p_Context);
 
 	} // End drawComponentMiniSymbol
+
 	public void Drawnamecompartment(final GCDelegate p_Context,
 			final boolean p_Filled, final float p_H, final String p_Text,
 			final float p_W, final float p_X, final float p_Y) {
@@ -3770,6 +3893,7 @@ public class Shape_c extends NonRootModelElement
 				(int) (p_X + 5), (int) (p_Y));
 
 	} // End drawNameCompartment
+
 	public boolean Isoveredge(final int p_X, final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Isoveredge");
@@ -3840,6 +3964,7 @@ public class Shape_c extends NonRootModelElement
 		return false;
 
 	} // End isOverEdge
+
 	public boolean Isovernamecompartment(final int p_X, final int p_Y) {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Isovernamecompartment");
@@ -3873,6 +3998,7 @@ public class Shape_c extends NonRootModelElement
 		return false;
 
 	} // End isOverNameCompartment
+
 	public int Getnamecompartmentwidth() {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Getnamecompartmentwidth");
@@ -3884,6 +4010,7 @@ public class Shape_c extends NonRootModelElement
 		return Gr_c.Gettextextent(Axis_c.X, Gr_c.Getcontext(), v_text) + 10;
 
 	} // End getNameCompartmentWidth
+
 	public int Getnamecompartmentheight() {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Getnamecompartmentheight");
@@ -3895,6 +4022,7 @@ public class Shape_c extends NonRootModelElement
 		return Gr_c.Gettextextent(Axis_c.Y, Gr_c.Getcontext(), v_text) + 5;
 
 	} // End getNameCompartmentHeight
+
 	public int Geticonslotcount() {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Geticonslotcount");
@@ -3918,6 +4046,7 @@ public class Shape_c extends NonRootModelElement
 		return v_numSlots;
 
 	} // End getIconSlotCount
+
 	public String Get_name() {
 		Ooaofgraphics.log.println(ILogger.OPERATION, "Shape",
 				" Operation entered: Shape::Get_name");
