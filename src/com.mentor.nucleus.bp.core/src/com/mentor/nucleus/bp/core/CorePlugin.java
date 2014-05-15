@@ -536,7 +536,7 @@ public class CorePlugin extends AbstractUIPlugin {
             descriptor = getImageDescriptor("metadata/FunctionParameter.gif");
             }    
             else if (objectName.equals("Operation_c")) {
-            	if(((Operation_c)object).getInstance_based()==0){
+            	if((object) != null && ((Operation_c)object).getInstance_based()==0){
             		descriptor = getImageDescriptor("feri.gif");
             	}
             	else{
